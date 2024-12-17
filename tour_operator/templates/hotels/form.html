@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">
+        {% if form.instance.pk %}
+            Редактирование отеля
+        {% else %}
+            Добавление отеля
+        {% endif %}
+    </h1>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+            <label>Название отеля</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-danger">
+                    {{ form.name.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Количество звезд</label>
+            {{ form.stars }}
+            {% if form.stars.errors %}
+                <div class="text-danger">
+                    {{ form.stars.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Страна</label>
+            {{ form.country }}
+            {% if form.country.errors %}
+                <div class="text-danger">
+                    {{ form.country.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Адрес</label>
+            {{ form.address }}
+            {% if form.address.errors %}
+                <div class="text-danger">
+                    {{ form.address.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'hotels:list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Экспорт данных</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <a href="{% url 'dashboard:home' %}" class="btn btn-secondary me-2">Вернуться в меню</a>
+        <div class="mb-3">
+            <label for="table" class="form-label">Выберите таблицу:</label>
+            <select name="table" id="table" class="form-select">
+                {% for table in tables %}
+                <option value="{{ table }}">{{ table|capfirst }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="format" class="form-label">Выберите формат:</label>
+            <select name="format" id="format" class="form-select">
+                <option value="json">JSON</option>
+                <option value="xlsx">XLSX</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Выгрузить</button>
+    </form>
+</div>
+{% endblock %}

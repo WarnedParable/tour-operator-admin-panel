@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Список договоров</h1>
+    <a href="{% url 'contracts:create' %}" class="btn btn-success mb-3">Создать договор</a>
+    <a href="{% url 'dashboard:home' %}" class="btn btn-secondary me-2">Вернуться в меню</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Клиент</th>
+                <th>Тур</th>
+                <th>Дата заключения</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contract in contracts %}
+            <tr>
+                <td>{{ contract.client }}</td>
+                <td>{{ contract.tour }}</td>
+                <td>{{ contract.contract_date }}</td>
+                <td>
+                    <a href="{% url 'contracts:delete' contract.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
